@@ -9,7 +9,7 @@ const Footer = () => {
             </span>
             <span className="text-white font-bold tracking-tight flex gap-4">
                 <p className="cursor-pointer">Politica de Privacidade</p>
-                <p className="cursor-pointer">Politica de Privacidade</p>
+                <p className="cursor-pointer">Termos de Segurança</p>
             </span>
         </div>
     </div>
