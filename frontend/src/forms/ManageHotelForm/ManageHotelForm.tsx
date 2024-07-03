@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
-import DetailsSection from './DetailsSection'
-import TypesSection from './TypesSection'
+import DetailsSection from './DetailsSection';
+import TypesSection from './TypesSection';
 import FacilitiesSection from './FacilitiesSection';
 import GuestsSection from './GuestsSection';
 import ImagesSection from './ImagesSection';
@@ -28,13 +28,13 @@ type Props = {
     isLoading: boolean;
 }
 
-const ManageHotelForm = ({onSave, isLoading, hotel}: Props) => {
+const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     const formMethods = useForm<HotelFormData>();
-    const {handleSubmit, reset} = formMethods;
+    const { handleSubmit, reset } = formMethods;
 
     useEffect(() => {
         if (hotel) {
-            reset(hotel);
+            reset(hotel as HotelFormData);
         } else {
             reset();
         }
@@ -42,7 +42,7 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: Props) => {
 
     const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
         const formData = new FormData();
-        if(hotel){
+        if (hotel) {
             formData.append('hotelId', hotel._id);
         }
         formData.append('name', formDataJson.name);
@@ -55,42 +55,43 @@ const ManageHotelForm = ({onSave, isLoading, hotel}: Props) => {
         formData.append('adultCount', formDataJson.adultCount.toString());
         formData.append('childCount', formDataJson.childCount.toString());
 
-        formDataJson.facilities.forEach((facility, index)=> {
+        formDataJson.facilities.forEach((facility, index) => {
             formData.append(`facilities[${index}]`, facility);
         });
 
-        if (formDataJson.imageUrls){
+        if (formDataJson.imageUrls) {
             formDataJson.imageUrls.forEach((url, index) => {
                 formData.append(`imageUrls[${index}]`, url);
-            })
+            });
         }
 
         Array.from(formDataJson.imageFiles).forEach((imageFile) => {
-            formData.append(`imageFiles`, imageFile)
+            formData.append('imageFiles', imageFile);
         });
 
         onSave(formData);
-    })
+    });
+
     return (
-       <FormProvider {...formMethods}>
-        <form className='flex flex-col gap-10' onSubmit={onSubmit}>
-            <DetailsSection />
-            <TypesSection />
-            <FacilitiesSection />
-            <GuestsSection />
-            <ImagesSection />
-            <span className='flex justify-end'>
-                <button 
-                type='submit'
-                className='bg-blue-600 text-white p-2 font-bold disabled:bg-gray-500'
-                disabled={isLoading}
-                >
-                {isLoading ? "Saving...": "Save"}
-                </button>
-            </span>
-        </form>
-       </FormProvider>
-    )
+        <FormProvider {...formMethods}>
+            <form className='flex flex-col gap-10' onSubmit={onSubmit}>
+                <DetailsSection />
+                <TypesSection />
+                <FacilitiesSection />
+                <GuestsSection />
+                <ImagesSection />
+                <span className='flex justify-end'>
+                    <button 
+                        type='submit'
+                        className='bg-blue-600 text-white p-2 font-bold disabled:bg-gray-500'
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Saving..." : "Save"}
+                    </button>
+                </span>
+            </form>
+        </FormProvider>
+    );
 }
 
 export default ManageHotelForm;
