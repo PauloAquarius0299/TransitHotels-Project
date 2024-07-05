@@ -7,19 +7,19 @@ const router = express.Router();
 router.get("/search", async (req: Request, res: Response) => {
 
     try{
-        const query = constructSearchQuery(req.query);
+      const query = constructSearchQuery(req.query);
 
-        let sortOptions = {};
+      let sortOptions = {};
       switch (req.query.sortOption) {
-      case "starRating":
-        sortOptions = { starRating: -1 };
-        break;
-      case "pricePerNightAsc":
-        sortOptions = { pricePerNight: 1 };
-        break;
-      case "pricePerNightDesc":
-        sortOptions = { pricePerNight: -1 };
-        break;
+        case "starRating":
+          sortOptions = { starRating: -1 };
+          break;
+        case "pricePerNightAsc":
+          sortOptions = { pricePerNight: 1 };
+          break;
+        case "pricePerNightDesc":
+          sortOptions = { pricePerNight: -1 };
+          break;
     }
 
         const pageSize = 5;
