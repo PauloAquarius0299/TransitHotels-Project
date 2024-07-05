@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useSearchContext } from '../../contexts/SearchContext';
 import { useAppContext } from '../../contexts/AppContext';
 import { useLocation, useNavigate } from 'react-router-dom';
