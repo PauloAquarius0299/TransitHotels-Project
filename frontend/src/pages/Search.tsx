@@ -69,52 +69,64 @@ const Search = () => {
       };
 
     return (
-        <div className='grid grid-col-1 lg:grid-cols-[250px_1fr] gap-5'>
-            <div className='rounded-lg border border-slate-300 p-5 h-full sticky top-10'>
-                <div className='space-y-5'>
-                    <h3 className='text-lg font-semibold border-b border-slate-300 pb-5'>
-                        Filtro:
-                    </h3>
-                    <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
-                    <HotelTypesFilter selectedHotelTypes={selectedHotelTypes} onChange={handleHotelTypeChange} />
-                    <FacilitiesFilter selectedFacilities={selectedFacilities} onChange={handleFacilityChange} />
-                    <PriceFilter selectedPrice={selectedPrice}
-                    onChange={(value?: number) => setSelectedPrice(value)} />
-                </div>
-            </div>
-            <div className='flex flex-col gap-5'>
-                <div className='flex justify-between items-center'>
-                    <span className='text-xl font-bold'>
-                        {hotelData?.pagination.total} Hotel Encontrado:
-                        {search.destination ? ` ${search.destination}` : ""}
-                    </span>
-                    <select
-                    value={sortOption}
-                 onChange={(event) => setSortOption(event.target.value)}
-                 className="p-2 border rounded-md"
-                      >
-                  <option value="">Filtro por</option>
-                <option value="starRating">Bem Avaliado</option>
-               <option value="pricePerNightAsc">
-               Preço por Noite (Menor ao Maior)
-                </option>
-               <option value="pricePerNightDesc">
-              Preço por Noite (Maior ao Menor)
-              </option>
-                </select>
-                </div>
-                {hotelData?.data.map((hotel) => (
-                <SearchResultsCard hotel={hotel} />
-                 ))}
-                 <div>
-                    <Pagination 
-                    page={hotelData?.pagination.page || 1}
-                    pages={hotelData?.pagination.pages || 1}
-                    onPageChange={(page) => setPage(page)}
-                    />
-                 </div>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
+      <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10">
+        <div className="space-y-5">
+          <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
+            Filter by:
+          </h3>
+          <StarRatingFilter
+            selectedStars={selectedStars}
+            onChange={handleStarsChange}
+          />
+          <HotelTypesFilter
+            selectedHotelTypes={selectedHotelTypes}
+            onChange={handleHotelTypeChange}
+          />
+          <FacilitiesFilter
+            selectedFacilities={selectedFacilities}
+            onChange={handleFacilityChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
+          />
         </div>
+      </div>
+      <div className="flex flex-col gap-5">
+        <div className="flex justify-between items-center">
+          <span className="text-xl font-bold">
+            {hotelData?.pagination.total} Hoteis encontrados
+            {search.destination ? ` in ${search.destination}` : ""}
+          </span>
+          <select
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value)}
+            className="p-2 border rounded-md"
+          >
+            <option value="">Achar por:</option>
+            <option value="starRating">Avaliação</option>
+            <option value="pricePerNightAsc">
+              Preço por noite (menor ao Maior)
+            </option>
+            <option value="pricePerNightDesc">
+              Preço por noite (Maior ao menor)
+            </option>
+          </select>
+        </div>
+        {hotelData?.data.map((hotel) => (
+          <SearchResultsCard hotel={hotel} />
+        ))}
+        <div>
+          <Pagination
+            page={hotelData?.pagination.page || 1}
+            pages={hotelData?.pagination.pages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
+        </div>
+      </div>
+    </div>
+
     )
 }
 
